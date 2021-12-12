@@ -19,3 +19,7 @@ The following parts are under development:
 -	Adding thermal solver
 -	Adding multiphase solvers
 -	So on
+
+
+The video below shows how to compile and use this GUI:
+https://youtu.be/iX8Kqk6PgC0
