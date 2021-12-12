@@ -543,10 +543,7 @@ void uiMaker::setupMenuBar()
 
     QMenu *aboutMenu = new QMenu("&Help");
     aboutMenu->addAction("&Help");
-//    aboutMenu->addAction("&About");
-//    aboutMenu->addAction(tr("&About"), this, &uiMaker::about);
 
-//    QMenu *aboutMenu = MainWindow->menuBar()->addMenu(tr("About"));
     QAction *aboutAct = aboutMenu->addAction(tr("&About"), this, &uiMaker::about);
     aboutAct->setStatusTip(tr("Show the application's About box"));
     menu->addMenu(aboutMenu);
@@ -557,19 +554,17 @@ void uiMaker::setupMenuBar()
 void uiMaker::about()
 {
   static const char message[] =
-      "<p><b>Qt Main Window Example</b></p>"
 
-      "<p>This is a demonstration of the QMainWindow, QToolBar and "
-      "QDockWidget classes.</p>"
+      "<p>It is a graphical user interface for Palabos libraries.</p>"
 
-      "<p>The tool bar and dock widgets can be dragged around and rearranged "
-      "using the mouse or via the menu.</p>"
+      "<p>This application is written based on Qt 5.12 and Palabos libraries version 2.0.</p>"
 
-      "<p>Each dock widget contains a colored frame and a context "
-      "(right-click) menu.</p>"
+      "<p>It is a preliminary release and I have not fully analysed the performance of the application. "
+      "I distributed this application in the hope that it will be useful, but WITHOUT ANY WARRANTY.</p>"
       ;
 
-  QMessageBox::about(MainWindow, tr("About MainWindows"), message);
+
+  QMessageBox::about(MainWindow, tr("About Taav"), message);
 }
 
 
