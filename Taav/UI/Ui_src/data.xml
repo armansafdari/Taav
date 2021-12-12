@@ -1,0 +1,377 @@
+<!-- 
+<choose name="choosesth:"></choose>
+<item name="pooya"></item>
+<field name="iner" input="12" unit="" type="int or fload"></field>
+<text name="iner"></text> 
+<path name="Adress:" path="" item="0"></path>
+-->
+<root name="root">
+    <text name="Environment">
+
+	 <uneditable name="Work Folder:" path="./"></uneditable>
+	 
+<!--
+        <choose name="Dimension:">
+            <item name="2D"></item>
+            <item name="3D"></item>
+        </choose>
+-->
+
+        <text name="Parameters:">
+            <shortfield name="X:" input="400" unit="" type="int"></shortfield>
+            <shortfield name="Y:" input="100" unit="" type="int"></shortfield>
+            <shortfield name="Tau:" input="1" unit="" type="float" ></shortfield>
+        </text>
+
+        <choose name="Block Dynamic:">
+            <item name="BGK"></item>
+            <item name="MRT"></item>
+            <item name="BGKLES"></item>
+	    <item name="ShanChen"></item>
+            
+            <shortfield name="cSmago:" input="1.5" unit="" item="2" type="float"></shortfield>
+
+        </choose>
+        
+
+        <choose name="LBM Scheme:">
+                <item name="D2Q9"></item>
+                <choose name="External Force: " item="0">
+                    <item name="false"></item>
+                    <item name="true"></item>
+
+                    <shortfield name="X:" input="0" unit="" item="1"></shortfield>
+                    <shortfield name="Y:" input="0" unit="" item="1"></shortfield>
+                </choose>
+	</choose>
+
+        <choose name="Boundary Condition:">
+            <item name="false"></item>
+            <item name="true"></item>
+            <path name="Address:" path="./" item="1"></path>
+
+            <choose name="PeriodicX:" item="0">
+                <item name="false"></item>
+                <item name="true"></item>
+
+                <choose name="X+:" item="0">
+                    <item name="velocity"></item>
+		    <item name="pressure"></item>
+
+		    <choose name="Velocity type:" item="0">
+			<item name="dirichlet"></item>
+			<item name="neumann"></item>			
+			<item name="outflow"></item>
+			<item name="freeslip"></item>
+		    </choose>
+		    <choose name="Pressure type:" item="1">
+			<item name="dirichlet"></item>
+			<item name="neumann"></item>
+		    </choose>
+                </choose>
+
+                <choose name="X-:" item="0">
+                    <item name="velocity"></item>
+		    <item name="pressure"></item>
+
+		    <choose name="Velocity type:" item="0">
+			<item name="dirichlet"></item>
+			<item name="neumann"></item>			
+			<item name="outflow"></item>
+			<item name="freeslip"></item>
+		    </choose>
+		    <choose name="Pressure type:" item="1">
+			<item name="dirichlet"></item>
+			<item name="neumann"></item>
+		    </choose>
+
+                </choose>
+
+
+            </choose>
+
+            <choose name="PeriodicY:" item="0">
+                <item name="false"></item>
+                <item name="true"></item>
+
+                <choose name="Y+:" item="0">
+                    <item name="velocity"></item>
+		    <item name="pressure"></item>
+
+		    <choose name="Velocity type:" item="0">
+			<item name="dirichlet"></item>
+			<item name="neumann"></item>			
+			<item name="outflow"></item>
+			<item name="freeslip"></item>
+		    </choose>
+		    <choose name="Pressure type:" item="1">
+			<item name="dirichlet"></item>
+			<item name="neumann"></item>
+		    </choose>
+
+                </choose>
+
+                <choose name="Y-:" item="0">
+                    <item name="velocity"></item>
+		    <item name="pressure"></item>
+
+		    <choose name="Velocity type:" item="0">
+			<item name="dirichlet"></item>
+			<item name="neumann"></item>			
+			<item name="outflow"></item>
+			<item name="freeslip"></item>
+		    </choose>
+		    <choose name="Pressure type:" item="1">
+			<item name="dirichlet"></item>
+			<item name="neumann"></item>
+		    </choose>
+                </choose>
+
+
+            </choose>
+
+	    <choose name="Object in domain:" item="0">
+		    <item name="false"></item>
+		    <item name="true"></item>
+		    <choose name="Load a File:" item="1">
+			<item name="false"></item>
+			<item name="true"></item>
+			
+			<path name="Address:" path="./" item="1"></path>
+			<field name="Bounce back boundary:" input="if((x-70)^2+(y-51)^2 &lt;=200,1,0)" unit="" item="0"></field>
+			<field name="No dynamics area:" input="0" unit="" item="0"></field>
+		    </choose>
+	    </choose>	
+
+        </choose>
+	
+	<text name="Initial Condition:">
+	    <choose name="Density from a file:">
+		<item name="false"></item>
+		<item name="true"></item>
+		<path name="Address:" path="./" item="1"></path>
+		<field name="Density script:" input="1" item="0"></field>
+	    </choose>
+	    
+	    <choose name="Velocity from a file:">
+		<item name="false"></item>
+		<item name="true"></item>
+		<path name="Address:" path="./" item="1"></path>
+		<shortshortfield name="X:" input="4*0.1*(y/99-(y/99)^2)" unit="" item="0"></shortshortfield>
+		<shortshortfield name="Y:" input="0" unit="" item="0"></shortshortfield>
+	    </choose>
+	
+	</text>
+    </text>
+
+    <text name="Materials">
+        <shortfield name="Fluid name:" input="Water" ></shortfield>
+        <text name="Fluid properties: ">
+            <shortfield name="Density:" input="1000" unit="kg/m^3" type="float"></shortfield>
+            <longfield name="Kinematic viscosity:" input="1e-6" unit="m^2/s" type="float"></longfield>
+        </text>
+    </text>
+
+    <text name="Geometry">
+	<choose name="Momentum Object:">
+            <item name="false"></item>
+            <item name="true"></item>
+	    <field name="Object name:" input="shape 1;; shape 2;; shape 3" unit="" item="1"></field>
+            <field name="Object location:" input="if((x&lt;=60)and(x&gt;=40)and(y&lt;=60)and(y&gt;=40),1,0);;if((x&lt;=60*2)and(x&gt;=40*2)and(y&lt;=60)and(y&gt;=40),1,0);;if((x&lt;=60*2+50)and(x&gt;=40*2+50)and(y&lt;=40)and(y&gt;=20),1,0)" unit="" item="1"></field>
+	</choose>
+        <choose name="Shape:">
+            <item name="false"></item>
+            <item name="true"></item>
+	    
+            <path name="Address:" path="./" item="1">
+
+            <choose name="Behavior type" item="1">
+                <item name="Enforced"></item>
+                <item name="Fixed"></item>
+
+                <text name="Enforced:" item="0">
+                    <text name="Rotation:">
+                        <shortfield name="X:" input="0" unit=""></shortfield>
+                        <shortfield name="Y:" input="0" unit=""></shortfield>
+                        <shortfield name="Z:" input="0" unit=""></shortfield>
+                    </text>
+                    <text name="Transition:">
+                        <shortfield name="X:" input="0" unit=""></shortfield>
+                        <shortfield name="Y:" input="0" unit=""></shortfield>
+                        <shortfield name="Z:" input="0" unit=""></shortfield>
+                    </text>
+                    <text name="Scale:">
+                        <shortfield name="X:" input="0" unit=""></shortfield>
+                        <shortfield name="Y:" input="0" unit=""></shortfield>
+                        <shortfield name="Z:" input="0" unit=""></shortfield>
+                    </text>
+                </text>
+                <text name="Fixed:" item="1">
+                    <text name="Rotation:">
+                        <shortfield name="X:" input="0" unit=""></shortfield>
+                        <shortfield name="Y:" input="0" unit=""></shortfield>
+                        <shortfield name="Z:" input="0" unit=""></shortfield>
+                    </text>
+                    <text name="Transition:">
+                        <shortfield name="X:" input="0" unit=""></shortfield>
+                        <shortfield name="Y:" input="0" unit=""></shortfield>
+                        <shortfield name="Z:" input="0" unit=""></shortfield>
+                    </text>
+                    <text name="Scale:">
+                        <shortfield name="X:" input="0" unit=""></shortfield>
+                        <shortfield name="Y:" input="0" unit=""></shortfield>
+                        <shortfield name="Z:" input="0" unit=""></shortfield>
+                    </text>
+                </text>
+            </choose>
+	    </path>
+	</choose>
+    </text>
+
+    <text name="Simulation:">
+        <text name="Time:">
+            <shortfield name="Start:" input="0" unit="" type="int"></shortfield>
+            <shortfield name="Finish:" input="10000" unit="" type="int"></shortfield>
+            <longfield name="Outputs frequency:" input="20" unit="" type="int"></longfield>
+        </text>
+
+        <choose name="Save data:">
+            <item name="true"></item>
+            <item name="false"></item>
+
+<!--
+            <shortfield name="FolderAddress" input="path" unit="" item="1"></shortfield>
+-->
+            <longfield name="Text frequency:" input="2" unit="" item="0" type="int"></longfield>
+            <longfield name="Image frequency:" input="20" unit="" item="0" type="int"></longfield>
+            <longfield name="VTK  frequency:" input="5" unit="" item="0" type="int"></longfield>
+
+        </choose>
+
+        <choose name="Check point:">
+            <item name="true"></item>
+            <item name="false"></item>
+	    
+<!--
+            <path name="Address" path="./checkpoint/" unit="" item="1"></path>
+-->
+            <longfield name="Checkpoint frequency:" input="2" unit="" item="0" type="int"></longfield>
+        </choose>
+    </text>
+
+
+
+    <text name="Post Processing">
+	
+	<text name="Units:">
+	    <longfield name="Mass coefficient" input="1" unit="" type="float"></longfield>
+	    <longfield name="Length coefficient" input="1" unit="" type="float"></longfield>
+	    <longfield name="Time coefficient" input="1" unit="" type="float"></longfield>
+	</text>
+
+        <choose name="Text file:">
+            <item name="false"></item>
+            <item name="true"></item>
+	    
+	    <choose name="Custom domains:" item="1">
+                <item name="false"></item>
+                <item name="true"></item>
+		<field name="Domain:" input="[0,10,0,10]" unit="" item="1"></field>		
+            </choose>
+	    <shortfield name="Precision:" input="5" unit="" item="1" type="int"></shortfield>
+            <choose name="Velocity:" item="1">
+                <item name="true"></item>
+                <item name="false"></item>
+            </choose>
+<!--
+            <choose name="Vorticity:" item="1">
+                <item name="true"></item>
+                <item name="false"></item>
+            </choose>
+-->
+            <choose name="Density:" item="1">
+                <item name="true"></item>
+                <item name="false"></item>
+            </choose>
+        </choose>
+
+        <choose name="VTK file:">
+            <item name="false"></item>
+            <item name="true"></item>
+	    
+	    <choose name="Custom domains:" item="1">
+                <item name="false"></item>
+                <item name="true"></item>
+		<field name="Domain:" input="[0,10,0,10]" unit="" item="1"></field>		
+            </choose>
+            <choose name="Velocity:" item="1">
+                <item name="true"></item>
+                <item name="false"></item>
+            </choose>
+<!--
+            <choose name="Vorticity:" item="1">
+                <item name="true"></item>
+                <item name="false"></item>
+            </choose>
+-->
+            <choose name="Density:" item="1">
+                <item name="true"></item>
+                <item name="false"></item>
+            </choose>
+        </choose>
+
+        <choose name="Image file:">
+            <item name="false"></item>
+            <item name="true"></item>
+	    
+	    <choose name="Custom domains:" item="1">
+                <item name="false"></item>
+                <item name="true"></item>
+		<field name="Domain:" input="[0,10,0,10]" unit="" item="1"></field>		
+            </choose>
+            <choose name="Velocity:" item="1">
+                <item name="true"></item>
+                <item name="false"></item>
+		<choose name="Color type:" item="0">
+		    <item name="leeloo"></item>
+		    <item name="earth"></item>
+		    <item name="water"></item>
+		    <item name="air"></item>
+		    <item name="fire"></item>
+		</choose>
+            </choose>
+<!--
+            <choose name="Vorticity:" item="1">
+                <item name="true"></item>
+                <item name="false"></item>
+		<choose name="Color type:" item="0">
+		    <item name="leeloo"></item>
+		    <item name="earth"></item>
+		    <item name="water"></item>
+		    <item name="air"></item>
+		    <item name="fire"></item>
+		</choose>
+            </choose>
+-->
+            <choose name="Density:" item="1">
+                <item name="true"></item>
+                <item name="false"></item>
+		<choose name="Color type:" item="0">
+		    <item name="leeloo"></item>
+		    <item name="earth"></item>
+		    <item name="water"></item>
+		    <item name="air"></item>
+		    <item name="fire"></item>
+		</choose>
+            </choose>
+        </choose>
+
+    </text>
+
+
+</root>
+
+
+
+
+   
