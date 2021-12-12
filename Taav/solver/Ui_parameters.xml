@@ -1,0 +1,215 @@
+<?xml version="1.0" ?>
+<projectTree>
+<Environment>./
+    <Dimension>DimensionType </Dimension>
+    <WorkFolder>./</WorkFolder>
+    <Parameters>
+   <X>200</X>
+   <Y>100</Y>
+   <Tau>1</Tau>
+  </Parameters>
+  <BlockDynamic>BGK<cSmago>1.5</cSmago>
+  </BlockDynamic>
+
+  <LBMScheme>D2Q9<ExternalForce>false<X>0</X>
+    <Y>0</Y>
+   </ExternalForce>
+  </LBMScheme>
+  
+
+  <BoundaryCondition>false
+    <Address>./</Address>
+   <PeriodicX>false
+	<XP>velocity
+	    <Velocitytype>dirichlet</Velocitytype>
+	    <Pressuretype>dirichlet</Pressuretype>
+	</XP>
+
+	<XN>velocity<Velocitytype>dirichlet</Velocitytype>
+	 <Pressuretype>dirichlet</Pressuretype>
+	</XN>
+   </PeriodicX>
+
+   <PeriodicY>false
+	<YP>velocity<Velocitytype>dirichlet</Velocitytype>
+	 <Pressuretype>dirichlet</Pressuretype>
+	</YP>
+	<YN>velocity<Velocitytype>dirichlet</Velocitytype>
+	 <Pressuretype>dirichlet</Pressuretype>
+	</YN>
+   </PeriodicY>
+   
+   <Objectindomain>false
+	<LoadaFile>false
+	    <Address>./</Address>
+	<Bouncebackboundary>if((x-70)^2+(y-51)^2 &lt;=200,1,0)</Bouncebackboundary>
+	<Nodynamicsarea>0</Nodynamicsarea>
+	
+<!--
+		<Bouncebackboundary>if((x&lt;=60*2)and(x&gt;=40*2)and(y&lt;=60)and(y&gt;=40),1,0)</Bouncebackboundary>
+		<Nodynamicsarea>if((x&lt;=59*2)and(x&gt;=41*2)and(y&lt;=59)and(y&gt;=41),1,0)</Nodynamicsarea>
+-->
+	</LoadaFile>
+   </Objectindomain>
+  </BoundaryCondition>
+
+	
+
+  <InitialCondition>
+   <Densityfromafile>false<Address>./</Address>
+    <Densityscript>1</Densityscript>
+   </Densityfromafile>
+   <Velocity>
+    <X>4*0.1*(y/99-(y/99)^2)</X>
+    <Y>0</Y>
+   </Velocity>
+   
+   
+<!--
+	<velocity>
+	    <x>if((y==99),0.0,if((y==0),0.0,0))</x>
+	    <y>if((x==99),-0.1,if((x==0),0.1,0))</y>
+	</velocity>
+-->
+<!--
+	<Density>if((x&lt;=60)and(x&gt;=40)and(y&lt;=60)and(y&gt;=40),1.1,1)</Density>
+-->   
+  </InitialCondition>
+
+</Environment>
+       
+ <Materials><Fluidname>Water</Fluidname>
+      <Fluidproperties>
+	   <Density>1000</Density>
+	   <Kinematicviscosity>1e-6</Kinematicviscosity>
+      </Fluidproperties>
+ </Materials>
+
+
+<Geometry>
+    <MomentumObject>true
+	<Objectname>
+	Square 1 ;; Square 2 ;; Square 3
+	</Objectname>
+	
+	<Objectlocation>
+	if((x&lt;=60)and(x&gt;=40)and(y&lt;=60)and(y&gt;=40),1,0);;
+	if((x&lt;=60*2)and(x&gt;=40*2)and(y&lt;=60)and(y&gt;=40),1,0);;
+	if((x&lt;=60*2+50)and(x&gt;=40*2+50)and(y&lt;=40)and(y&gt;=20),1,0)
+	
+	</Objectlocation>
+    </MomentumObject>
+    
+    <Shape>false
+	<Address>./
+	    <Behaviortype>Enforced
+	    <Enforced>
+		<Rotation>
+		   <X>0</X>
+		   <Y>0</Y>
+		   <Z>0</Z>
+		</Rotation>
+		<Transition>
+		   <X>0</X>
+		   <Y>0</Y>
+		   <Z>0</Z>
+		</Transition>
+		<Scale>
+		   <X>0</X>
+		   <Y>0</Y>
+		   <Z>0</Z>
+		</Scale>
+	    </Enforced>
+	    <Fixed>
+		<Rotation>
+		    <X>0</X>
+		    <Y>0</Y>
+		    <Z>0</Z>
+		</Rotation>
+		<Transition>
+		    <X>0</X>
+		    <Y>0</Y>
+		    <Z>0</Z>
+		</Transition>
+		<Scale>
+		    <X>0</X>
+		    <Y>0</Y>
+		    <Z>0</Z>
+		</Scale>
+	     </Fixed>
+	    </Behaviortype>
+       </Address>
+  </Shape>
+</Geometry>
+
+
+<Simulation>
+    <Time>
+	<Start>0</Start>
+	<Finish>100000</Finish>
+	<Outputsfrequency>20</Outputsfrequency>
+    </Time>
+    <Savedata>true
+	<Textfrequency>2</Textfrequency>
+	<Imagefrequency>20</Imagefrequency>
+	<VTKfrequency>2</VTKfrequency>
+    </Savedata>
+    <Checkpoint>false
+	<Checkpointfrequency>2</Checkpointfrequency>
+    </Checkpoint>
+</Simulation>
+
+
+
+<PostProcessing>
+
+	<Units>
+	    <Masscoefficient>1</Masscoefficient>
+	    <Lengthcoefficient>1</Lengthcoefficient>
+	    <Timecoefficient>1</Timecoefficient>
+	</Units>
+
+	<Textfile>true
+	    <Customdomains>true
+		<Domain>
+		      [0,80, 0, 100];;[100,400,0,100];;[0,400,0,100]
+		</Domain>
+	    </Customdomains>
+	    <Precision>5</Precision>
+	    <Velocity>true</Velocity>
+<!--
+	    <Vorticity>false</Vorticity>
+-->
+	    <Density>true</Density>
+	</Textfile>
+	
+	<VTKfile>true
+	    <Customdomains>true
+		<Domain>
+		      [0,70, 0, 130];;[100,400,0,100]
+		</Domain>
+	    </Customdomains>
+	    <Velocity>true</Velocity>
+	    <Vorticity>false</Vorticity>
+	    <Density>true</Density>
+	</VTKfile>
+	
+	<Imagefile>true
+	    <Customdomains>true
+		<Domain>
+		      [0,100, 0, 100];;[100,400,0,100];;[0,400,0,100]
+		</Domain>
+	    </Customdomains>
+	    <Velocity>true
+	        <Colortype>leeloo</Colortype>
+	    </Velocity>
+	    <Vorticity>false
+		<Colortype>leeloo</Colortype>
+	    </Vorticity>
+	    <Density>true
+		<Colortype>leeloo</Colortype>
+	    </Density>	
+	</Imagefile>
+
+</PostProcessing>
+</projectTree>
