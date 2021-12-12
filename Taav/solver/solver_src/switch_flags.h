@@ -1,0 +1,128 @@
+#ifndef SWITCH_FLAGS_H
+#define SWITCH_FLAGS_H
+
+/*
+Copyright 2010 Mike Gibson. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:
+
+1. Redistributions of source code must retain the above copyright
+   notice, this list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright
+   notice, this list of conditions and the following disclaimer in the
+   documentation and/or other materials provided with the
+   distribution.
+
+THIS SOFTWARE IS PROVIDED BY COPYRIGHT HOLDERS AND CONTRIBUTORS ``AS
+IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS
+OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR
+TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
+USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
+DAMAGE.
+*/
+
+#define SWITCH_FLAGS_COMBINE(B, V) ((V<<1)|B)
+
+#define SWITCH_FLAGS_MELD(A, B) A: case B
+
+#define SWITCH_FLAGS_A0_F(V) SWITCH_FLAGS_COMBINE(0, V)
+#define SWITCH_FLAGS_A0_T(V) SWITCH_FLAGS_COMBINE(1, V)
+#define SWITCH_FLAGS_A0_X(V)		  \
+	SWITCH_FLAGS_MELD(			  \
+		SWITCH_FLAGS_COMBINE(0, V), \
+		SWITCH_FLAGS_COMBINE(1, V))
+#define SWITCH_FLAGS_A0(A0) SWITCH_FLAGS_A0_ ## A0(0)
+
+#define SWITCH_FLAGS_A1_F(A0, V) SWITCH_FLAGS_A0_ ## A0(SWITCH_FLAGS_COMBINE(0, V))
+#define SWITCH_FLAGS_A1_T(A0, V) SWITCH_FLAGS_A0_ ## A0(SWITCH_FLAGS_COMBINE(1, V))
+#define SWITCH_FLAGS_A1_X(A0, V)					\
+	SWITCH_FLAGS_MELD(							\
+	    SWITCH_FLAGS_A0_ ## A0(SWITCH_FLAGS_COMBINE(0, V)),	\
+		SWITCH_FLAGS_A0_ ## A0(SWITCH_FLAGS_COMBINE(1, V))) 
+#define SWITCH_FLAGS_A1(A0, A1) SWITCH_FLAGS_A1_ ## A1(A0, 0)
+
+#define SWITCH_FLAGS_A2_F(A0, A1, V) SWITCH_FLAGS_A1_ ## A1(A0, SWITCH_FLAGS_COMBINE(0, V))
+#define SWITCH_FLAGS_A2_T(A0, A1, V) SWITCH_FLAGS_A1_ ## A1(A0, SWITCH_FLAGS_COMBINE(1, V))
+#define SWITCH_FLAGS_A2_X(A0, A1, V)					\
+	SWITCH_FLAGS_MELD(								\
+	    SWITCH_FLAGS_A1_ ## A1(A0, SWITCH_FLAGS_COMBINE(0, V)),	\
+		SWITCH_FLAGS_A1_ ## A1(A0, SWITCH_FLAGS_COMBINE(1, V))) 
+#define SWITCH_FLAGS_A2(A0, A1, A2) SWITCH_FLAGS_A2_ ## A2(A0, A1, 0)
+
+#define SWITCH_FLAGS_A3_F(A0, A1, A2, V) SWITCH_FLAGS_A2_ ## A2(A0, A1, SWITCH_FLAGS_COMBINE(0, V))
+#define SWITCH_FLAGS_A3_T(A0, A1, A2, V) SWITCH_FLAGS_A2_ ## A2(A0, A1, SWITCH_FLAGS_COMBINE(1, V))
+#define SWITCH_FLAGS_A3_X(A0, A1, A2, V)					\
+	SWITCH_FLAGS_MELD(									\
+	    SWITCH_FLAGS_A2_ ## A2(A0, A1, SWITCH_FLAGS_COMBINE(0, V)),	\
+		SWITCH_FLAGS_A2_ ## A2(A0, A1, SWITCH_FLAGS_COMBINE(1, V))) 
+#define SWITCH_FLAGS_A3(A0, A1, A2, A3) SWITCH_FLAGS_A3_ ## A3(A0, A1, A2, 0)
+
+#define SWITCH_FLAGS_A4_F(A0, A1, A2, A3, V) SWITCH_FLAGS_A3_ ## A3(A0, A1, A2, SWITCH_FLAGS_COMBINE(0, V))
+#define SWITCH_FLAGS_A4_T(A0, A1, A2, A3, V) SWITCH_FLAGS_A3_ ## A3(A0, A1, A2, SWITCH_FLAGS_COMBINE(1, V))
+#define SWITCH_FLAGS_A4_X(A0, A1, A2, A3, V)					\
+	SWITCH_FLAGS_MELD(										\
+	    SWITCH_FLAGS_A3_ ## A3(A0, A1, A2, SWITCH_FLAGS_COMBINE(0, V)),	\
+		SWITCH_FLAGS_A3_ ## A3(A0, A1, A2, SWITCH_FLAGS_COMBINE(1, V))) 
+#define SWITCH_FLAGS_A4(A0, A1, A2, A3, A4) SWITCH_FLAGS_A4_ ## A4(A0, A1, A2, A3, 0)
+
+#define SWITCH_FLAGS_A5_F(A0, A1, A2, A3, A4, V) SWITCH_FLAGS_A4_ ## A4(A0, A1, A2, A3, SWITCH_FLAGS_COMBINE(0, V))
+#define SWITCH_FLAGS_A5_T(A0, A1, A2, A3, A4, V) SWITCH_FLAGS_A4_ ## A4(A0, A1, A2, A3, SWITCH_FLAGS_COMBINE(1, V))
+#define SWITCH_FLAGS_A5_X(A0, A1, A2, A3, A4, V)					\
+	SWITCH_FLAGS_MELD(											\
+	    SWITCH_FLAGS_A4_ ## A4(A0, A1, A2, A3, SWITCH_FLAGS_COMBINE(0, V)),	\
+		SWITCH_FLAGS_A4_ ## A4(A0, A1, A2, A3, SWITCH_FLAGS_COMBINE(1, V))) 
+#define SWITCH_FLAGS_A5(A0, A1, A2, A3, A4, A5) SWITCH_FLAGS_A5_ ## A5(A0, A1, A2, A3, A4, 0)
+
+#define SWITCH_FLAGS_A6_F(A0, A1, A2, A3, A4, A5, V) SWITCH_FLAGS_A5_ ## A5(A0, A1, A2, A3, A4, SWITCH_FLAGS_COMBINE(0, V))
+#define SWITCH_FLAGS_A6_T(A0, A1, A2, A3, A4, A5, V) SWITCH_FLAGS_A5_ ## A5(A0, A1, A2, A3, A4, SWITCH_FLAGS_COMBINE(1, V))
+#define SWITCH_FLAGS_A6_X(A0, A1, A2, A3, A4, A5, V)					\
+	SWITCH_FLAGS_MELD(												\
+	    SWITCH_FLAGS_A5_ ## A5(A0, A1, A2, A3, A4, SWITCH_FLAGS_COMBINE(0, V)),	\
+		SWITCH_FLAGS_A5_ ## A5(A0, A1, A2, A3, A4, SWITCH_FLAGS_COMBINE(1, V))) 
+#define SWITCH_FLAGS_A6(A0, A1, A2, A3, A4, A5, A6) SWITCH_FLAGS_A6_ ## A6(A0, A1, A2, A3, A4, A5, 0)
+
+#define SWITCH_FLAGS_A7_F(A0, A1, A2, A3, A4, A5, A6, V) SWITCH_FLAGS_A6_ ## A6(A0, A1, A2, A3, A4, A5, SWITCH_FLAGS_COMBINE(0, V))
+#define SWITCH_FLAGS_A7_T(A0, A1, A2, A3, A4, A5, A6, V) SWITCH_FLAGS_A6_ ## A6(A0, A1, A2, A3, A4, A5, SWITCH_FLAGS_COMBINE(1, V))
+#define SWITCH_FLAGS_A7_X(A0, A1, A2, A3, A4, A5, A6, V)					\
+	SWITCH_FLAGS_MELD(													\
+	    SWITCH_FLAGS_A6_ ## A6(A0, A1, A2, A3, A4, A5, SWITCH_FLAGS_COMBINE(0, V)),	\
+		SWITCH_FLAGS_A6_ ## A6(A0, A1, A2, A3, A4, A5, SWITCH_FLAGS_COMBINE(1, V))) 
+#define SWITCH_FLAGS_A7(A0, A1, A2, A3, A4, A5, A6, A7) SWITCH_FLAGS_A7_ ## A7(A0, A1, A2, A3, A4, A5, A6, 0)
+
+#define SWITCH_FLAGS_S0(A0)                             ((A0) ? 1 : 0)
+#define SWITCH_FLAGS_S1(A0, A1)                         (SWITCH_FLAGS_S0(A0) | (SWITCH_FLAGS_S0(A1) << 1))
+#define SWITCH_FLAGS_S2(A0, A1, A2)                     (SWITCH_FLAGS_S0(A0) | (SWITCH_FLAGS_S1(A1, A2) << 1))
+#define SWITCH_FLAGS_S3(A0, A1, A2, A3)                 (SWITCH_FLAGS_S0(A0) | (SWITCH_FLAGS_S2(A1, A2, A3) << 1))
+#define SWITCH_FLAGS_S4(A0, A1, A2, A3, A4)             (SWITCH_FLAGS_S0(A0) | (SWITCH_FLAGS_S3(A1, A2, A3, A4) << 1))
+#define SWITCH_FLAGS_S5(A0, A1, A2, A3, A4, A5)         (SWITCH_FLAGS_S0(A0) | (SWITCH_FLAGS_S4(A1, A2, A3, A4, A5) << 1))
+#define SWITCH_FLAGS_S6(A0, A1, A2, A3, A4, A5, A6)     (SWITCH_FLAGS_S0(A0) | (SWITCH_FLAGS_S5(A1, A2, A3, A4, A5, A6) << 1))
+#define SWITCH_FLAGS_S7(A0, A1, A2, A3, A4, A5, A6, A7) (SWITCH_FLAGS_S0(A0) | (SWITCH_FLAGS_S6(A1, A2, A3, A4, A5, A6, A7) << 1))
+
+#define switch_flags_1(A0)                             switch SWITCH_FLAGS_S0(A0)
+#define switch_flags_2(A0, A1)                         switch SWITCH_FLAGS_S1(A0, A1)
+#define switch_flags_3(A0, A1, A2)                     switch SWITCH_FLAGS_S2(A0, A1, A2)
+#define switch_flags_4(A0, A1, A2, A3)                 switch SWITCH_FLAGS_S3(A0, A1, A2, A3)
+#define switch_flags_5(A0, A1, A2, A3, A4)             switch SWITCH_FLAGS_S4(A0, A1, A2, A3, A4)
+#define switch_flags_6(A0, A1, A2, A3, A4, A5)         switch SWITCH_FLAGS_S5(A0, A1, A2, A3, A4, A5)
+#define switch_flags_7(A0, A1, A2, A3, A4, A5, A6)     switch SWITCH_FLAGS_S6(A0, A1, A2, A3, A4, A5, A6)
+#define switch_flags_8(A0, A1, A2, A3, A4, A5, A6, A7) switch SWITCH_FLAGS_S7(A0, A1, A2, A3, A4, A5, A6, A7)
+
+#define flags_1(A0)                         SWITCH_FLAGS_A0(A0)
+#define flags_2(A0,A1)                      SWITCH_FLAGS_A1(A0,A1)
+#define flags_3(A0,A1,A2)                   SWITCH_FLAGS_A2(A0,A1,A2)
+#define flags_4(A0,A1,A2,A3)                SWITCH_FLAGS_A3(A0,A1,A2,A3)
+#define flags_5(A0,A1,A2,A3,A4)             SWITCH_FLAGS_A4(A0,A1,A2,A3,A4)
+#define flags_6(A0,A1,A2,A3,A4,A5)          SWITCH_FLAGS_A5(A0,A1,A2,A3,A4,A5)
+#define flags_7(A0,A1,A2,A3,A4,A5,A6)       SWITCH_FLAGS_A6(A0,A1,A2,A3,A4,A5,A6)
+#define flags_8(A0,A1,A2,A3,A4,A5,A6,A7)    SWITCH_FLAGS_A7(A0,A1,A2,A3,A4,A5,A6,A7)
+
+#endif /* SWITCH_FLAGS_H */
