@@ -7,7 +7,7 @@ It is a preliminary release and I have not fully analysed the performance of the
 I distributed this application in the hope that it will be useful, but WITHOUT ANY WARRANTY.
 
 
-The following parts are under development:
+The below sections are under development:
 -	Adding more LBM dynamics solvers
 -	Adding more lattice vector schemes
 -	Adding 3D viewer widget and 3D case studies
@@ -21,5 +21,5 @@ The following parts are under development:
 -	So on
 
 
-The video below shows how to compile and use this GUI:
+The following video shows how to compile and use this GUI:
 https://youtu.be/iX8Kqk6PgC0
